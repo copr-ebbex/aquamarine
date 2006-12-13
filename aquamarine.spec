@@ -2,14 +2,13 @@ Name:           aquamarine
 Url:            http://www.beryl-project.org/
 License:        GPL
 Group:          User Interface/Desktops
-Version:        0.1.2
-Release:        3%{?dist}
+Version:        0.1.3
+Release:        1%{?dist}
 
 Summary:        Themeable window decorator and compositing manager for Beryl
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-# Source only available via svn right now
-# svn://svn.beryl-project.org/beryl/tags/release-%{version}/%{name}
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        http://releases.beryl-project.org/%{version}/%{name}-%{version}.tar.bz2
+Patch0:         aquamarine-0.1.3-Makefile.patch
 
 # libdrm is not available on these arches
 ExcludeArch:    s390 s390x ppc64
@@ -29,7 +28,7 @@ for use with KDE.
 
 %prep
 %setup -q
-make -f admin/Makefile.common svn
+%patch0 -p1 -b .make
 
 %build
 %configure
@@ -52,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Dec 12 2006 Jarod Wilson <jwilson@redhat.com> 0.1.3-1
+- New upstream release
+
 * Fri Nov 17 2006 Jarod Wilson <jwilson@redhat.com> 0.1.2-3
 - Remove R: qt, kdelibs, rely on auto-gen lib deps
 
