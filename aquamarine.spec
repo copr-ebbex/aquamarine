@@ -2,18 +2,18 @@ Name:           aquamarine
 Url:            http://www.beryl-project.org/
 License:        GPL
 Group:          User Interface/Desktops
-Version:        0.1.3
+Version:        0.1.4
 Release:        1%{?dist}
 
 Summary:        Themeable window decorator and compositing manager for Beryl
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Source0:        http://releases.beryl-project.org/%{version}/%{name}-%{version}.tar.bz2
-Patch0:         aquamarine-0.1.3-Makefile.patch
+Patch0:         aquamarine-0.1.4-fixes.patch
 
 # libdrm is not available on these arches
 ExcludeArch:    s390 s390x ppc64
 
-Requires:       beryl-core >= %{version}
+Requires:       beryl-core >= %{version}, kdelibs, kdebase
 
 BuildRequires:  beryl-core-devel >= %{version}
 BuildRequires:  qt-devel, kdelibs-devel, kdebase-devel
@@ -39,18 +39,34 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 find $RPM_BUILD_ROOT -type f -name "*.a" -o -name "*.la" | xargs rm -f
+# Fix up xy_XY to just xy
+for lang in es_ES hu_HU it_IT pt_PT ru_RU
+do
+  dest=$(echo ${lang} | cut -d_ -f1)
+  mv $RPM_BUILD_ROOT%{_datadir}/locale/${lang} \
+    $RPM_BUILD_ROOT%{_datadir}/locale/${dest} 2>&1 > /dev/null
+done
+
+%find_lang %{name}
 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root,-)
 %{_bindir}/aquamarine
+%{_libdir}/kde3/kcm_beryl.so
+%{_datadir}/applications/kde/beryl.desktop
+%{_datadir}/config.kcfg/aquamarine.kcfg
+%{_libdir}/beryl/backends/libkconfig.so
 
 
 %changelog
+* Tue Jan 02 2007 Jarod Wilson <jwilson@redhat.com> 0.1.4-1
+- New upstream release
+
 * Tue Dec 12 2006 Jarod Wilson <jwilson@redhat.com> 0.1.3-1
 - New upstream release
 
