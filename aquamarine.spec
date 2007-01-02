@@ -3,7 +3,7 @@ Url:            http://www.beryl-project.org/
 License:        GPL
 Group:          User Interface/Desktops
 Version:        0.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Themeable window decorator and compositing manager for Beryl
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -17,7 +17,7 @@ Requires:       beryl-core >= %{version}, kdelibs, kdebase
 
 BuildRequires:  beryl-core-devel >= %{version}
 BuildRequires:  qt-devel, kdelibs-devel, kdebase-devel
-BuildRequires:  libtool
+BuildRequires:  libtool, perl-XML-Parser, gettext-devel
 
 
 %description
@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 02 2007 Jarod Wilson <jwilson@redhat.com> 0.1.4-2
+- Add BR: for translations
+
 * Tue Jan 02 2007 Jarod Wilson <jwilson@redhat.com> 0.1.4-1
 - New upstream release
 
