@@ -3,7 +3,7 @@ Url:            http://www.beryl-project.org/
 License:        GPL
 Group:          User Interface/Desktops
 Version:        0.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Themeable window decorator and compositing manager for Beryl
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -38,7 +38,6 @@ make %{?_smp_mflags}
 %install
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
-find $RPM_BUILD_ROOT -type f -name "*.a" -o -name "*.la" | xargs rm -f
 # Fix up xy_XY to just xy
 for lang in es_ES hu_HU it_IT pt_PT ru_RU
 do
@@ -58,12 +57,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_bindir}/aquamarine
 %{_libdir}/kde3/kcm_beryl.so
+%{_libdir}/kde3/kcm_beryl.la
 %{_datadir}/applications/kde/beryl.desktop
 %{_datadir}/config.kcfg/aquamarine.kcfg
 %{_libdir}/beryl/backends/libkconfig.so
+%{_libdir}/beryl/backends/libkconfig.la
 
 
 %changelog
+* Thu Jan 11 2007 Jarod Wilson <jwilson@redhat.com> 0.1.4-3
+- kcontrol beryl item requires .la files to function (#221733)
+
 * Tue Jan 02 2007 Jarod Wilson <jwilson@redhat.com> 0.1.4-2
 - Add BR: for translations
 
