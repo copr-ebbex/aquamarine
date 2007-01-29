@@ -2,8 +2,8 @@ Name:           aquamarine
 Url:            http://www.beryl-project.org/
 License:        GPL
 Group:          User Interface/Desktops
-Version:        0.1.4
-Release:        3%{?dist}
+Version:        0.1.99.2
+Release:        1%{?dist}
 
 Summary:        Themeable window decorator and compositing manager for Beryl
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jan 29 2007 Jarod Wilson <jwilson@redhat.com> 0.1.99.2-1
+- New upstream release
+
 * Thu Jan 11 2007 Jarod Wilson <jwilson@redhat.com> 0.1.4-3
 - kcontrol beryl item requires .la files to function (#221733)
 
