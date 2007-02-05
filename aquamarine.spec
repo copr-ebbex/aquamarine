@@ -2,7 +2,7 @@ Name:           aquamarine
 Url:            http://www.beryl-project.org/
 License:        GPL
 Group:          User Interface/Desktops
-Version:        0.1.99.2
+Version:        0.1.9999.1
 Release:        1%{?dist}
 
 Summary:        Themeable window decorator and compositing manager for Beryl
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 05 2007 Jarod Wilson <jwilson@redhat.com> 0.1.9999.1-1
+- beryl 0.1.9999.1 (aka 0.2.0-rc1)
+
 * Mon Jan 29 2007 Jarod Wilson <jwilson@redhat.com> 0.1.99.2-1
 - New upstream release
 
