@@ -8,7 +8,7 @@ Release:        2%{?dist}
 Summary:        Themeable window decorator and compositing manager for Beryl
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Source0:        http://releases.beryl-project.org/%{version}/%{name}-%{version}.tar.bz2
-Patch0:         aquamarine-0.1.4-fixes.patch
+Patch0:         aquamarine-0.1.9999.2-fixes.patch
 
 # libdrm is not available on these arches
 ExcludeArch:    s390 s390x ppc64
