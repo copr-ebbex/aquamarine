@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 20 2007 Jarod Wilson <jwilson@redhat.com> 0.1.9999.2-2
+- Fix up patch
+
 * Tue Feb 20 2007 Jarod Wilson <jwilson@redhat.com> 0.1.9999.2-1
 - beryl 0.1.9999.2 (aka 0.2.0-rc2)
 
