@@ -2,8 +2,8 @@ Name:           aquamarine
 Url:            http://www.beryl-project.org/
 License:        GPL
 Group:          User Interface/Desktops
-Version:        0.1.9999.2
-Release:        2%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 
 Summary:        Themeable window decorator and compositing manager for Beryl
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -39,7 +39,7 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 # Fix up xy_XY to just xy
-for lang in es_ES hu_HU it_IT pt_PT ru_RU
+for lang in es_ES hu_HU it_IT ru_RU
 do
   dest=$(echo ${lang} | cut -d_ -f1)
   mv $RPM_BUILD_ROOT%{_datadir}/locale/${lang} \
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Mar 15 2007 Jarod Wilson <jwilson@redhat.com> 0.2.0-1
+- beryl 0.2.0
+
 * Tue Feb 20 2007 Jarod Wilson <jwilson@redhat.com> 0.1.9999.2-2
 - Fix up patch
 
