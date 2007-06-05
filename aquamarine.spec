@@ -2,7 +2,7 @@ Name:           aquamarine
 Url:            http://www.beryl-project.org/
 License:        GPL
 Group:          User Interface/Desktops
-Version:        0.2.0
+Version:        0.2.1
 Release:        1%{?dist}
 
 Summary:        Themeable window decorator and compositing manager for Beryl
@@ -11,7 +11,7 @@ Source0:        http://releases.beryl-project.org/%{version}/%{name}-%{version}.
 Patch0:         aquamarine-0.1.9999.2-fixes.patch
 
 # libdrm is not available on these arches
-ExcludeArch:    s390 s390x ppc64
+ExcludeArch:    s390 s390x
 
 Requires:       beryl-core >= %{version}, kdelibs, kdebase
 
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jun 04 2007 Jarod Wilson <jwilson@redhat.com> 0.2.1-1
+- beryl 0.2.1
+
 * Thu Mar 15 2007 Jarod Wilson <jwilson@redhat.com> 0.2.0-1
 - beryl 0.2.0
 
