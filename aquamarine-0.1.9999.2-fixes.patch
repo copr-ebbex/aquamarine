@@ -1,0 +1,25 @@
+diff -urp aquamarine-0.1.4.orig/Makefile.in aquamarine-0.1.4/Makefile.in
+--- aquamarine-0.1.4.orig/Makefile.in	2006-12-26 07:42:14.000000000 -0500
++++ aquamarine-0.1.4/Makefile.in	2007-01-02 15:00:42.000000000 -0500
+@@ -814,21 +814,6 @@ uninstall-info: uninstall-info-recursive
+ 	mostlyclean-recursive pdf pdf-am ps ps-am tags tags-recursive \
+ 	uninstall uninstall-am uninstall-info-am uninstall-local
+ 
+-$(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in $(top_srcdir)/admin/cvs.sh $(top_srcdir)/admin/pkg.m4.in
+-	@cd $(top_srcdir) && $(SHELL) admin/cvs.sh acinclude_m4
+-
+-$(top_srcdir)/configure.in: $(top_srcdir)/subdirs $(top_srcdir)/configure.files $(top_srcdir)/admin/cvs.sh
+-	@cd $(top_srcdir) && $(SHELL) admin/cvs.sh configure_in
+-
+-$(top_srcdir)/configure.files: $(top_srcdir)/subdirs $(CONF_FILES)
+-	@cd $(top_srcdir) && $(SHELL) admin/cvs.sh configure.files $(top_srcdir)/admin/cvs.sh
+-
+-$(top_srcdir)/Makefile.am: $(top_srcdir)/Makefile.am.in $(top_srcdir)/subdirs $(top_srcdir)/admin/cvs.sh
+-	@cd $(top_srcdir) && $(SHELL) admin/cvs.sh Makefile_am
+-
+-$(top_srcdir)/subdirs: $(top_srcdir)/Makefile.am.in $(top_srcdir)/admin/cvs.sh
+-	@cd $(top_srcdir) && $(SHELL) admin/cvs.sh subdirs
+-
+ # defining default rules for files that may not be present
+ $(top_srcdir)/Makefile.am.in:
+ $(CONF_FILES):
