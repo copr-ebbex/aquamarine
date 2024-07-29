@@ -1,105 +1,61 @@
 Name:           aquamarine
-Url:            http://www.beryl-project.org/
-License:        GPL
-Group:          User Interface/Desktops
-Version:        0.2.1
-Release:        1%{?dist}
+Version:        0.1.1
+Release:        %autorelease
+Summary:        A very light linux rendering backend library
+License:        BSD-3-Clause
+URL:            https://github.com/hyprwm/aquamarine
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Summary:        Themeable window decorator and compositing manager for Beryl
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Source0:        http://releases.beryl-project.org/%{version}/%{name}-%{version}.tar.bz2
-Patch0:         aquamarine-0.1.9999.2-fixes.patch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
-# libdrm is not available on these arches
-ExcludeArch:    s390 s390x
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  mesa-libEGL-devel
 
-Requires:       beryl-core >= %{version}, kdelibs, kdebase
-
-BuildRequires:  beryl-core-devel >= %{version}
-BuildRequires:  qt-devel, kdelibs-devel, kdebase-devel
-BuildRequires:  libtool, perl(XML::Parser), gettext-devel
-
+BuildRequires:  pkgconfig(gbm)
+BuildRequires:  pkgconfig(hwdata)
+BuildRequires:  pkgconfig(hyprutils)
+BuildRequires:  pkgconfig(hyprwayland-scanner)
+BuildRequires:  pkgconfig(libdisplay-info)
+BuildRequires:  pkgconfig(libdrm)
+BuildRequires:  pkgconfig(libinput)
+BuildRequires:  pkgconfig(libseat)
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(pixman-1)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-protocols)
 
 %description
-Aquamarine is themeable window decorator and compositing
-manager for Beryl. Launch Theme Manager from
-beryl-manager to change themes. Aquamarine is intended
-for use with KDE.
+%{summary}.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+%description    devel
+Development files for %{name}.
 
 %prep
-%setup -q
-%patch0 -p1 -b .make
+%autosetup -p1
+sed -i 's/0\.1\.0/0.1.1/' VERSION
 
 %build
-%configure
-make %{?_smp_mflags}
-
+%cmake
+%cmake_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
-# Fix up xy_XY to just xy
-for lang in es_ES hu_HU it_IT ru_RU
-do
-  dest=$(echo ${lang} | cut -d_ -f1)
-  mv $RPM_BUILD_ROOT%{_datadir}/locale/${lang} \
-    $RPM_BUILD_ROOT%{_datadir}/locale/${dest} 2>&1 > /dev/null
-done
+%cmake_install
 
-%find_lang %{name}
+%files
+%license LICENSE
+%doc README.md docs/env.md
+%{_libdir}/lib%{name}.so.%{version}
+%{_libdir}/lib%{name}.so.0
 
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-
-%files -f %{name}.lang
-%defattr(-,root,root,-)
-%{_bindir}/aquamarine
-%{_libdir}/kde3/kcm_beryl.so
-%{_libdir}/kde3/kcm_beryl.la
-%{_datadir}/applications/kde/beryl.desktop
-%{_datadir}/config.kcfg/aquamarine.kcfg
-%{_libdir}/beryl/backends/libkconfig.so
-%{_libdir}/beryl/backends/libkconfig.la
-
+%files devel
+%{_includedir}/%{name}/
+%{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
-* Mon Jun 04 2007 Jarod Wilson <jwilson@redhat.com> 0.2.1-1
-- beryl 0.2.1
-
-* Thu Mar 15 2007 Jarod Wilson <jwilson@redhat.com> 0.2.0-1
-- beryl 0.2.0
-
-* Tue Feb 20 2007 Jarod Wilson <jwilson@redhat.com> 0.1.9999.2-2
-- Fix up patch
-
-* Tue Feb 20 2007 Jarod Wilson <jwilson@redhat.com> 0.1.9999.2-1
-- beryl 0.1.9999.2 (aka 0.2.0-rc2)
-
-* Mon Feb 05 2007 Jarod Wilson <jwilson@redhat.com> 0.1.9999.1-1
-- beryl 0.1.9999.1 (aka 0.2.0-rc1)
-
-* Mon Jan 29 2007 Jarod Wilson <jwilson@redhat.com> 0.1.99.2-1
-- New upstream release
-
-* Thu Jan 11 2007 Jarod Wilson <jwilson@redhat.com> 0.1.4-3
-- kcontrol beryl item requires .la files to function (#221733)
-
-* Tue Jan 02 2007 Jarod Wilson <jwilson@redhat.com> 0.1.4-2
-- Add BR: for translations
-
-* Tue Jan 02 2007 Jarod Wilson <jwilson@redhat.com> 0.1.4-1
-- New upstream release
-
-* Tue Dec 12 2006 Jarod Wilson <jwilson@redhat.com> 0.1.3-1
-- New upstream release
-
-* Fri Nov 17 2006 Jarod Wilson <jwilson@redhat.com> 0.1.2-3
-- Remove R: qt, kdelibs, rely on auto-gen lib deps
-
-* Thu Nov 16 2006 Jarod Wilson <jwilson@redhat.com> 0.1.2-2
-- Trim BR:
-
-* Fri Nov 10 2006 Jarod Wilson <jwilson@redhat.com> 0.1.2-1
-- Initial build
+%autochangelog
