@@ -1,5 +1,5 @@
 Name:           aquamarine
-Version:        0.1.1
+Version:        0.2.0
 Release:        %autorelease
 Summary:        A very light linux rendering backend library
 License:        BSD-3-Clause
@@ -37,7 +37,6 @@ Development files for %{name}.
 
 %prep
 %autosetup -p1
-sed -i 's/0\.1\.0/0.1.1/' VERSION
 
 %build
 %cmake
@@ -50,7 +49,7 @@ sed -i 's/0\.1\.0/0.1.1/' VERSION
 %license LICENSE
 %doc README.md docs/env.md
 %{_libdir}/lib%{name}.so.%{version}
-%{_libdir}/lib%{name}.so.0
+%{_libdir}/lib%{name}.so.1
 
 %files devel
 %{_includedir}/%{name}/
