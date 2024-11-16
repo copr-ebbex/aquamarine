@@ -49,7 +49,7 @@ Development files for %{name}.
 %license LICENSE
 %doc README.md docs/env.md
 %{_libdir}/lib%{name}.so.%{version}
-%{_libdir}/lib%{name}.so.3
+%{_libdir}/lib%{name}.so.4
 
 %files devel
 %{_includedir}/%{name}/
